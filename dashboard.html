@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        #lineChart, #barChart, #steeringAngleChart, #relAngleChart, #fvVelChart {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <div id="lineChart"></div>
+    <div id="barChart"></div>
+    <div id="steeringAngleChart"></div>
+    <div id="relAngleChart"></div>
+    <div id="fvVelChart"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/steering_angle').then(response => response.json())
+                .then(data => {
+                    Plotly.newPlot('steeringAngleChart', data.data, data.layout);
+                });
+            fetch('/rel_angle').then(response => response.json())
+                .then(data => {
+                    Plotly.newPlot('relAngleChart', data.data, data.layout);
+                });
+            fetch('/fv_vel').then(response => response.json())
+                .then(data => {
+                    Plotly.newPlot('fvVelChart', data.data, data.layout);
+                });
+        });
+    </script>
+</body>
+</html>
